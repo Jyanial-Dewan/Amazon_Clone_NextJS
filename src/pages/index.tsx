@@ -1,9 +1,9 @@
 import Bannner from "@/components/Bannner";
 import Products from "@/components/Products";
-import { ProductProps } from "../../type";
+import { ProductType } from "../../type";
 
 interface Props {
-  productData: ProductProps[];
+  productData: ProductType[];
 }
 
 export default function Home({ productData }: Props) {

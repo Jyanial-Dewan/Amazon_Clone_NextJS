@@ -1,14 +1,24 @@
+"use client";
+
 import React from "react";
-import { ProductProps } from "../../type";
+import { ProductType } from "../../type";
 import Image from "next/image";
 import { HiShoppingCart } from "react-icons/hi";
 import { FaHeart } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/store/productSlice";
 
 interface Props {
-  productData: ProductProps[];
+  productData: ProductType[];
 }
 
 const Products = ({ productData }: Props) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (product: ProductType) => {
+    dispatch(addToCart(product));
+  };
+
   const formatTwoDecimals = (value: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -63,7 +73,10 @@ const Products = ({ productData }: Props) => {
             <p className="text-xs text-gray-600 text-justify">
               {item.description.substring(0, 120)}
             </p>
-            <button className="h-10 font-medium bg-amazon_blue text-white rounded-md hover:bg-amazon_yellow hover:text-black duration-300 mt-2">
+            <button
+              onClick={() => handleAddToCart(item)}
+              className="h-10 font-medium bg-amazon_blue text-white rounded-md hover:bg-amazon_yellow hover:text-black duration-300 mt-2"
+            >
               add to cart
             </button>
           </div>
