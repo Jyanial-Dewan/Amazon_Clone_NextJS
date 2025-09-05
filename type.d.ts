@@ -8,4 +8,5 @@ export interface ProductType {
   price: number;
   title: string;
   _id: number;
+  quantity?: number;
 }
