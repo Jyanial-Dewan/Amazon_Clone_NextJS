@@ -87,7 +87,10 @@ const Header = () => {
           </div>
         )}
         {/**favorite */}
-        <div className="text-xs text-gray-100 flex flex-col justify-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] relative">
+        <Link
+          href={"/favorite"}
+          className="text-xs text-gray-100 flex flex-col justify-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] relative"
+        >
           <p>Marked</p>
           <p className="text-white font-bold">& Favorite</p>
           {favoriteData.length > 0 && (
@@ -95,7 +98,7 @@ const Header = () => {
               {favoriteData.length > 9 ? "9+" : favoriteData.length}
             </span>
           )}
-        </div>
+        </Link>
         {/**cart */}
         <Link
           href={"/cart"}

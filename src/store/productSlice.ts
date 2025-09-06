@@ -73,8 +73,18 @@ export const productSlice = createSlice({
       );
     },
 
+    deleteFavorite: (state, action) => {
+      state.favoriteData = state.favoriteData.filter(
+        (item) => item._id !== action.payload
+      );
+    },
+
     resetCart: (state) => {
       state.productData = [];
+    },
+
+    resetFavoriteData: (state) => {
+      state.favoriteData = [];
     },
 
     addUser: (state, action) => {
@@ -93,7 +103,9 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   deleteProduct,
+  deleteFavorite,
   resetCart,
+  resetFavoriteData,
   addUser,
   removeUser,
 } = productSlice.actions;
