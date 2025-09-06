@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProductType } from "../../type";
 
 interface ProductState {
@@ -14,6 +14,12 @@ const initialState: ProductState = {
   allProducts: [],
   userInfo: null,
 };
+
+// export const apiData = createAsyncThunk("apiData", async () => {
+//   const response = await fetch("https://fakestoreapiserver.reactbd.com/tech");
+//   console.log(response.json());
+//   return response.json();
+// });
 
 export const productSlice = createSlice({
   name: "productSlice",
@@ -94,7 +100,17 @@ export const productSlice = createSlice({
     removeUser: (state) => {
       state.userInfo = null;
     },
+
+    setAllProducts: (state, action) => {
+      state.allProducts = action.payload;
+    },
   },
+
+  // extraReducers: (builder) => {
+  //   builder.addCase(apiData.fulfilled, (state, action) => {
+  //     state.allProducts = action.payload;
+  //   });
+  // },
 });
 
 export const {
@@ -108,5 +124,6 @@ export const {
   resetFavoriteData,
   addUser,
   removeUser,
+  setAllProducts,
 } = productSlice.actions;
 export default productSlice.reducer;

@@ -1,6 +1,8 @@
 import Bannner from "@/components/Bannner";
 import Products from "@/components/Products";
 import { ProductType } from "../../type";
+// import { useDispatch } from "react-redux";
+// import { setAllProducts } from "@/store/productSlice";
 
 interface Props {
   productData: ProductType[];

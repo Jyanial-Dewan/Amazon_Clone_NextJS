@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../images/logo (1).png";
 import cartIcon from "../../images/cartIcon.png";
 import Image from "next/image";
@@ -10,13 +10,21 @@ import { useAppSelector } from "@/hooks/hooks";
 import { useSession, signIn } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { addUser } from "@/store/productSlice";
+import { ProductType } from "../../../type";
+import SearchProducts from "../SearchProducts";
 
 const Header = () => {
   const { data: session } = useSession();
+
   const dispatch = useDispatch();
   const { productData, favoriteData, userInfo } = useAppSelector(
     (state) => state.productData
   );
+  const [allProducts, setAllProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
+
+  console.log(allProducts);
 
   useEffect(() => {
     if (session) {
@@ -29,6 +37,27 @@ const Header = () => {
       );
     }
   }, [session]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const res = await fetch("https://fakestoreapiserver.reactbd.com/tech");
+      const productData = await res.json();
+      setAllProducts(productData);
+    };
+    fetchProducts();
+  }, []);
+  // Search area
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  useEffect(() => {
+    const filtered = allProducts.filter((item: ProductType) =>
+      item.title.toLocaleLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [searchQuery]);
 
   return (
     <div className="bg-amazon_blue text-lightText w-full h-20 sticky top-0 z-50">
@@ -51,13 +80,56 @@ const Header = () => {
         {/**searchbar */}
         <div className="flex-1 h-10 hidden md:inline-flex items-center justify-between relative">
           <input
-            type="text"
-            placeholder="Search next amazon product"
+            onChange={handleSearch}
+            value={searchQuery}
             className="w-full h-full rounded-md px-2 placeholder:text-sm text-base text-black border-[3px] border-transparent outline-none focus-visible:border-amazon_yellow"
+            type="text"
+            placeholder="Search products"
           />
           <span className="w-12 h-full bg-amazon_yellow text-black text-2xl flex items-center justify-center absolute right-0 rounded-tr-md rounded-br-md">
             <HiOutlineSearch />
           </span>
+          {/* ========== Searchfield ========== */}
+          {searchQuery && (
+            <div className="absolute left-0 top-12 w-full mx-auto max-h-96 bg-gray-200 rounded-lg overflow-y-scroll cursor-pointer text-black">
+              {filteredProducts.length > 0 ? (
+                <>
+                  {searchQuery &&
+                    filteredProducts.map((item: ProductType) => (
+                      <Link
+                        key={item._id}
+                        className="w-full border-b-[1px] border-b-gray-400 flex items-center gap-4"
+                        href={{
+                          pathname: `${item._id}`,
+                          query: {
+                            _id: item._id,
+                            brand: item.brand,
+                            category: item.category,
+                            description: item.description,
+                            image: item.image,
+                            isNew: item.isNew,
+                            oldPrice: item.oldPrice,
+                            price: item.price,
+                            title: item.title,
+                          },
+                        }}
+                        onClick={() => setSearchQuery("")}
+                      >
+                        <SearchProducts item={item} />
+                      </Link>
+                    ))}
+                </>
+              ) : (
+                <div className="bg-gray-50 flex items-center justify-center py-10 rounded-lg shadow-lg">
+                  <p className="text-xl font-semibold animate-bounce">
+                    Nothing is matches with your search keywords. Please try
+                    again!
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+          {/* ========== Searchfield ========== */}
         </div>
         {/**signin */}
         {userInfo ? (
