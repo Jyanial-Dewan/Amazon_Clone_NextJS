@@ -61,21 +61,25 @@ const Header = () => {
         </div>
         {/**signin */}
         {userInfo ? (
-          <div className="flex items-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] gap-1">
+          <div className="hidden md:flex items-center px-2 border border-transparent md:hover:border-white cursor-pointer duration-300 h-[70%] gap-1">
             <img
               src={userInfo.image}
               alt="userImage"
               className="w-8 h-8 rounded-full object-cover"
             />
             <div className="text-xs text-gray-100 flex flex-col justify-between">
-              <p className="text-white font-bold">{userInfo.name}</p>
-              <p>{userInfo.email}</p>
+              <p className="text-white font-bold w-[60px] md:w-auto">
+                {userInfo.name}
+              </p>
+              <p className="w-[60px] hidden md:w-auto md:block">
+                {userInfo.email}
+              </p>
             </div>
           </div>
         ) : (
           <div
             onClick={() => signIn()}
-            className="text-xs text-gray-100 flex flex-col justify-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%]"
+            className="hidden text-xs text-gray-100 md:flex flex-col justify-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%]"
           >
             <p>Hello, sign in</p>
             <p className="text-white font-bold flex items-center">
@@ -89,12 +93,13 @@ const Header = () => {
         {/**favorite */}
         <Link
           href={"/favorite"}
-          className="text-xs text-gray-100 flex flex-col justify-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] relative"
+          className="text-gray-100 md:flex flex-col justify-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] relative"
         >
           <p>Marked</p>
+
           <p className="text-white font-bold">& Favorite</p>
           {favoriteData.length > 0 && (
-            <span className="absolute right-2 top-2 w-4 h-4 border-[1px] border-gray-400 flex items-center justify-center text-xs text-amazon_yellow">
+            <span className="absolute right-4 top-0 md:top-2 w-4 h-4 border-[1px] border-gray-400 flex items-center justify-center text-xs text-amazon_yellow">
               {favoriteData.length > 9 ? "9+" : favoriteData.length}
             </span>
           )}

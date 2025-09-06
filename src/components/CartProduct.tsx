@@ -31,7 +31,7 @@ const CartProduct = ({ product }: Props) => {
   };
 
   return (
-    <div className="bg-gray-100 rounded-lg flex items-center gap-4">
+    <div className="bg-gray-100 rounded-lg flex flex-col md:flex-row items-center gap-4 pb-4">
       <Image
         className="object-cover"
         width={150}
@@ -75,7 +75,7 @@ const CartProduct = ({ product }: Props) => {
             </div>
           </div>
         </div>
-        <div className="text-lg font-semibold text-amazon_blue">
+        <div className="hidden text-lg font-semibold text-amazon_blue md:block">
           {product.quantity && (
             <p>{formatTwoDecimals(product.price * product.quantity)}</p>
           )}

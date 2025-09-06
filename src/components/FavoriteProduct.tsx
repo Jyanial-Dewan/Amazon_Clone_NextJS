@@ -38,7 +38,7 @@ const FavoriteProduct = ({ item }: cartProductProps) => {
             add to cart
           </button>
         </div>
-        <div className="text-lg font-semibold text-amazon_blue">
+        <div className="hidden text-lg font-semibold text-amazon_blue md:block">
           {item.quantity && formatTwoDecimals(item.price * item.quantity)}
         </div>
       </div>

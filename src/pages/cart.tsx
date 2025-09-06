@@ -24,11 +24,13 @@ const CartPage = () => {
       {productData.length > 0 ? (
         <>
           <div className="bg-white col-span-4 p-4 rounded-lg">
-            <div className="flex items-center justify-between border-b-[1px] border-b-gray-400 pb-1">
+            <div className="flex items-center justify-between border-b-[1px] border-b-gray-400 pb-1 w-full">
               <p className="text-2xl font-semibold text-amazon_blue">
                 Shopping Cart
               </p>
-              <p className="text-lg font-semibold text-amazon_blue">Subtitle</p>
+              <p className="hidden text-lg font-semibold text-amazon_blue md:block">
+                Subtitle
+              </p>
             </div>
             <div className="pt-2 flex flex-col gap-2">
               {productData.map((item: ProductType) => (
@@ -36,6 +38,9 @@ const CartPage = () => {
                   <CartProduct product={item} />
                 </div>
               ))}
+              <div className="md:hidden bg-gray-200 h-64 col-span-1 p-4 rounded-lg flex items-center justify-center">
+                <CartPayment />
+              </div>
               <button
                 onClick={handleResetCart}
                 className="w-44 h-10 font-semibold bg-gray-200 rounded-lg hover:bg-red-600 hover:text-white duration-300"
@@ -44,7 +49,7 @@ const CartPage = () => {
               </button>
             </div>
           </div>
-          <div className="bg-white h-64 col-span-1 p-4 rounded-lg flex items-center justify-center">
+          <div className="hidden bg-white h-64 col-span-1 p-4 rounded-lg md:flex items-center justify-center">
             <CartPayment />
           </div>
         </>

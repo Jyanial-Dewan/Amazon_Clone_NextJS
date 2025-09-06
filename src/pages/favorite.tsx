@@ -26,7 +26,9 @@ const FavoritePage = () => {
             <p className="text-2xl font-semibold text-amazon_blue">
               Favorte Items
             </p>
-            <p className="text-lg font-semibold text-amazon_blue">Action</p>
+            <p className="hidden text-lg font-semibold text-amazon_blue md:block">
+              Action
+            </p>
           </div>
           <div>
             {favoriteData.map((item: ProductType) => (
