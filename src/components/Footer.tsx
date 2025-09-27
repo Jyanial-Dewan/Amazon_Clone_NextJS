@@ -7,13 +7,13 @@ const Footer = () => {
       <Image className="w-24" src={logo} alt="logo" />
       <p className="text-sm -mt-4">
         All rights reserved{" "}
-        <a
+        <p
           className="hover:text-white hover:underline decoration-[1px] cursor-pointer duration-300"
-          href="https://reactbd.com"
-          target="_blank"
+          // href="https://reactbd.com"
+          // target="_blank"
         >
-          @reactbd.com
-        </a>
+          @jyaniald.com
+        </p>
       </p>
     </div>
   );
